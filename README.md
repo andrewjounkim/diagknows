@@ -34,13 +34,13 @@ DiagKnows returns Jaundice (its only match). The top retrieved item is s2d-0813:
 
 > I used Claude Code in VS Code (model: Claude Opus 5.5) to build the project step by step. I decided the idea, the stack (Python + ChromaDB), what counts as an item and its metadata, the ranking approach, the emergency check, the doctor suggestions, and that every threshold had to come from real distances instead of guesses. Claude wrote most of the code, ran the tests, and drafted the technical README sections at the bottom. Things it got wrong that were caught along the way:
 
-The first ranking let several far-away matches outvote one very close match. My test case ranked 3rd until the weighting was fixed.
-It labeled a weak match "high confidence".
-It made a folder that conflicted with the main module.
-It guessed the dataset author's full name from a Kaggle username.
-I also ran the app myself, found the output hard to read, and had it redesigned. The full prompt history is in prompt_log.md.
+> The first ranking let several far-away matches outvote one very close match. My test case ranked 3rd until the weighting was fixed.
+> It labeled a weak match "high confidence".
+> It made a folder that conflicted with the main module.
+> It guessed the dataset author's full name from a Kaggle username.
+> I also ran the app myself, found the output hard to read, and had it redesigned. The full prompt history is in prompt_log.md.
 
-Sources: Symptom2Disease dataset (Kaggle, uploaded by niyarrbarman); ChromaDB; the all-MiniLM-L6-v2 embedding model (Sentence Transformers).
+> Sources: Symptom2Disease dataset (Kaggle, uploaded by niyarrbarman); ChromaDB; the all-MiniLM-L6-v2 embedding model (Sentence Transformers).
 
 ---
 
