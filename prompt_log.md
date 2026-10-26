@@ -202,4 +202,28 @@ what other details can i add
 - **Weak test query:** the "banana" query failed. I learned that playful comparisons don't land with this embedding model and dataset unless the query also names actual symptoms.
 - **Dataset author:** a README draft gave the dataset author a full name guessed from a Kaggle username. It was changed to cite the username.
 
-> **[PLACEHOLDER: author]** Add your own reflections: what you learned, what surprised you, decisions you made yourself, and time spent.
+**What I learned**
+
+Vector search always gives you an answer, even when it shouldn't. My stock market query still returned "matches", just far away ones. Before seeing that, I didn't realize I'd need my own cutoff. Looking at the real distances (about 0.4–0.8 for real symptoms vs. 1.3+ for nonsense) is what made 1.0 a reasonable line.
+Embeddings capture meaning, but not everything. "Breakouts… whiteheads" found Acne with no shared keywords, which was the whole point. But my "banana-colored skin" query failed, and when I typed sneezing plus stabbing chest pain in one sentence, it ignored the chest pain completely. Clear, detailed, one-problem descriptions work much better.
+The emergency check was the hardest part. No distance cutoff cleanly separated emergencies from normal symptoms: catching more emergencies also meant flagging lots of normal descriptions. The embedding model matches by topic, not by how serious something is. I kept it as a safety net but documented that it misses things.
+Testing the whole flow found bugs that unit checks wouldn't. When I added a Gout case and searched for it, it was the closest match but ranked 3rd, because several weak matches outvoted it. I wouldn't have noticed without actually trying it.
+
+**What surprised me**
+
+How little setup ChromaDB needed: it stored everything in a folder and embedded the text for me, with no API key.
+That a working app can still be hard to use. When I ran it myself, the results were a wall of numbers and text, and it took a redesign to make it readable for a normal person.
+
+**Decisions I made**
+
+I chose a symptom explorer because people describe symptoms in so many different ways, which is exactly where meaning-based search beats keywords.
+I insisted that every threshold come from real data instead of guesses, that the app say "no confident match" rather than make something up, and that every result say it's not a diagnosis.
+I added the doctor suggestions and emergency routing so the results lead somewhere useful instead of just being a list.
+
+**If I kept going**
+
+I'd add a keyword-based backup for the emergency check (especially for stroke and suicide phrasing), and try a bigger embedding model to see if similar conditions like Common Cold and allergy stop getting mixed up.
+
+**Time spent**
+
+I spent a total of 4 hours completing this assignment. About an hour was spent on brainstorming, 2 hours and a half for the entire building, README, promptlog, and GitHub committing process, and half an hour for recording the video and uploading it to YouTube which you can find here: https://youtu.be/7ZPdceTQfVQ
