@@ -192,27 +192,6 @@ what other details can i add
 
 **What happened:** Claude ran richer versions of my query. A detailed description of fever, cough and stabbing chest pain matched **Pneumonia (strong)**, and a detailed sneezing description matched **Common Cold (strong)**. It also found a classic asthma description that still came back as Pneumonia.
 
-## 9. Checking against the assignment requirements
-
-**Prompt:** (followed by the full HW6 assignment page pasted in, not reproduced here)
-
-```
-is this good enough for these requirements if not change things
-```
-
-**What happened:**
-- **Gaps found:** the "earns its place" queries, this prompt log, the README rule that AI-written docs go under a labelled heading at the bottom, and getting the project onto GitHub.
-- **Query search:** Claude tested about 30 candidate queries against both the vector search and a simple keyword-matching baseline, looking for ones where the vector search finds the right condition, keyword search fails, and the query shares no important words with the retrieved description.
-- **README:** restructured, plus a check that every dataset description (14–78 tokens) fits under the model's 256-token limit.
-
-**Prompt:**
-
-```
-commit to github do all the requirements including all the write ups (other than my own words but guide me so i can write it later myself), put it in my portfolio with photos and whatnot and js do everything other than the video and writeups i need to do
-```
-
-**What happened:** Claude pushed the repo to GitHub, made terminal screenshots from real app output, added a DiagKnows card to the Projects page of my portfolio site, and wrote a private guide (not committed) for the sections I write myself.
-
 ---
 
 ## Where the AI got things wrong (and how it was caught)
