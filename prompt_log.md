@@ -4,8 +4,6 @@
 
 - **Claude Code** (VS Code extension), model **Claude Opus 5.5** (`claude-opus-5-5`): used for the whole build, from project setup through the README draft.
 
-> **[PLACEHOLDER: author]** A sentence or two on which model/tool you used for which parts, and why you chose it. Also add any other tools you used (e.g. ChatGPT, docs, Ed, office hours) and any work done outside this session.
-
 ## How this log was made
 
 The prompts below are copied **verbatim** from the Claude Code session, in order. Typos are left as typed. The short "What happened" notes under each prompt were drafted by Claude from the session and reviewed by me.
