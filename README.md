@@ -27,7 +27,7 @@ A command-line symptom explorer built on a vector database.
 > Query 1: breakouts all over my forehead and chin, whiteheads everywhere
 DiagKnows returns Acne as a strong match. One of the descriptions it retrieves is s2d-0598: "When I woke up this morning, I saw a terrible rash on my skin. Blackheads and pus-filled pimples are all over the place. Additionally, my skin has been changing a lot." A keyword search would miss this, because the item never says "breakouts", "forehead", "chin" or "whiteheads". It says "blackheads" and "pimples" instead, and a simple keyword search over the dataset actually ranked Hypertension first.
 
-Query 2: I look sallow and yellowish, my wee is dark like cola, and my belly aches
+> Query 2: I look sallow and yellowish, my wee is dark like cola, and my belly aches
 DiagKnows returns Jaundice (its only match). The top retrieved item is s2d-0813: "I've had a scratchy stomach and been throwing up. Aside from losing weight, I am also really exhausted. I have a high fever and yellow skin. Besides having stomach ache, my pee is black." A keyword search would miss it, because the query says "sallow", "yellowish", "wee", "cola" and "belly" while the item says "yellow skin", "pee", "black" and "stomach". They mean the same thing with different words, and the keyword search ranked Pneumonia first.
 
 ## How I used AI
