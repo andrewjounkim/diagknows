@@ -12,28 +12,35 @@ A command-line symptom explorer built on a vector database.
 
 ## What it does and why
 
-> **[PLACEHOLDER: to be written by the author]**
-> 1–2 sentences: what the app does and why you chose it.
+> DiagKnows is a command-line app where you describe how you feel in plain English, and it tells you which conditions your description most resembles, which kind of doctor to see, and shows a real patient description that's similar to yours. I chose it because people describe the same symptom in endless different ways ("peeing fire" vs. "burning when I urinate"), so a keyword search would miss most matches. Searching by meaning is exactly what a vector database is for.
 
 ## What's stored in the database
 
-> **[PLACEHOLDER: to be written by the author]**
-> Where the data came from, what counts as one item, whether/how you broke it up, roughly how many items you loaded, and what metadata each item has.
+> The data comes from the Symptom2Disease dataset on Kaggle: 1,200 short, first-person descriptions of symptoms, each labeled with one of 24 conditions (50 per condition). Each description is one item. I didn't need to split anything, because every description is between 14 and 78 tokens, well under the embedding model's 256-token limit. Each item stores the description as the document (that's the text that gets embedded and searched), plus two metadata fields: condition (the label) and source ("symptom2disease" for the dataset, "user" for cases added in the app). Dataset items have IDs like s2d-0001; user cases get a random uuid-based ID so they can never collide. There's also a second, small collection with 20 hand-written emergency descriptions, used only to check whether a query sounds like an emergency.
 
 ## How to add and search
 
-> **[PLACEHOLDER: to be written by the author]**
-> How a user adds new items, and how a user searches.
+> To search, choose option 1 and type how you feel in plain English. The app finds the 10 most similar patient descriptions and groups them by condition. Each match counts as a vote for its condition, and closer matches count more. It then shows the top conditions, each with a match strength (Strong / Possible / Weak), the kind of doctor to see, and one similar description. If nothing is close enough, it says "No confident match" instead of guessing. If the description sounds like an emergency, it tells you to seek emergency care instead of ranking anything. To add a case, choose option 2, type a description and a condition name (an existing one or a new one), and it's searchable immediately. Option 3 shows how many items are stored, the count per condition, and how many were added by users.
 
 ## Two queries a keyword search would miss
 
-> **[PLACEHOLDER: to be written by the author]**
-> Your two queries, the items they retrieve, and one sentence on why a keyword search would have failed.
+> Query 1: breakouts all over my forehead and chin, whiteheads everywhere
+DiagKnows returns Acne as a strong match. One of the descriptions it retrieves is s2d-0598: "When I woke up this morning, I saw a terrible rash on my skin. Blackheads and pus-filled pimples are all over the place. Additionally, my skin has been changing a lot." A keyword search would miss this, because the item never says "breakouts", "forehead", "chin" or "whiteheads". It says "blackheads" and "pimples" instead, and a simple keyword search over the dataset actually ranked Hypertension first.
+
+Query 2: I look sallow and yellowish, my wee is dark like cola, and my belly aches
+DiagKnows returns Jaundice (its only match). The top retrieved item is s2d-0813: "I've had a scratchy stomach and been throwing up. Aside from losing weight, I am also really exhausted. I have a high fever and yellow skin. Besides having stomach ache, my pee is black." A keyword search would miss it, because the query says "sallow", "yellowish", "wee", "cola" and "belly" while the item says "yellow skin", "pee", "black" and "stomach". They mean the same thing with different words, and the keyword search ranked Pneumonia first.
 
 ## How I used AI
 
-> **[PLACEHOLDER: to be written by the author]**
-> Which AI tools you used and for what, plus any citations. The full prompt history is in [`prompt_log.md`](prompt_log.md).
+> I used Claude Code in VS Code (model: Claude Opus 5.5) to build the project step by step. I decided the idea, the stack (Python + ChromaDB), what counts as an item and its metadata, the ranking approach, the emergency check, the doctor suggestions, and that every threshold had to come from real distances instead of guesses. Claude wrote most of the code, ran the tests, and drafted the technical README sections at the bottom. Things it got wrong that were caught along the way:
+
+The first ranking let several far-away matches outvote one very close match. My test case ranked 3rd until the weighting was fixed.
+It labeled a weak match "high confidence".
+It made a folder that conflicted with the main module.
+It guessed the dataset author's full name from a Kaggle username.
+I also ran the app myself, found the output hard to read, and had it redesigned. The full prompt history is in prompt_log.md.
+
+Sources: Symptom2Disease dataset (Kaggle, uploaded by niyarrbarman); ChromaDB; the all-MiniLM-L6-v2 embedding model (Sentence Transformers).
 
 ---
 
